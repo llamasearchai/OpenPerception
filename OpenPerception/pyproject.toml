@@ -1,0 +1,95 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "openperception"
+version = "0.1.0"
+authors = [
+    {name = "Nik Jois", email = "nikjois@llamasearch.ai"},
+]
+description = "Advanced Computer Vision and Perception Framework for Aerial Robotics and Drones"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {file = "LICENSE"}
+keywords = ["computer vision", "robotics", "drones", "slam", "sfm", "perception"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Image Processing",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+[project.urls]
+Homepage = "https://github.com/llamasearchai/OpenPerception"
+Documentation = "https://openperception.readthedocs.io" # Placeholder, update if you have actual docs
+Repository = "https://github.com/llamasearchai/OpenPerception"
+Issues = "https://github.com/llamasearchai/OpenPerception/issues"
+
+[project.scripts]
+openperception = "openperception.main:main_cli" # Assuming your CLI entry point
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-cov",
+    "black",
+    "isort",
+    "mypy",
+    "flake8",
+    "pylint",
+    "pre-commit",
+    "sphinx",
+    "sphinx-rtd-theme",
+    "myst-parser",
+    "sphinx-autodoc-typehints",
+]
+deep_learning = [
+    "torch>=1.9.0", # Specify versions as needed
+    "torchvision>=0.10.0",
+    "ultralytics", # For YOLOv5
+]
+ros2 = [
+    # Add ROS2 related dependencies if installable via pip, otherwise document separately
+    # e.g., "rclpy", "std_msgs", "sensor_msgs", "geometry_msgs", "cv_bridge"
+    # Often these are installed via apt or system package managers
+]
+# Add other optional dependencies groups as needed: e.g., "docs", "jetson"
+
+[tool.black]
+line-length = 100
+target-version = ["py38", "py39", "py310"]
+include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
+line_length = 100
+multi_line_output = 3
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_classes = "Test*"
+python_functions = "test_*"
+filterwarnings = [
+    "ignore::DeprecationWarning",
+    "ignore::PendingDeprecationWarning",
+]
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+
+[[tool.mypy.overrides]]
+module = ["cv2.*", "numpy.*", "scipy.*", "yaml.*", "toml.*"]
+ignore_missing_imports = true 

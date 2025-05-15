@@ -1,0 +1,94 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "openperception"
+version = "0.1.0"
+description = "A comprehensive computer vision and perception framework for aerial robotics and autonomous systems"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {file = "LICENSE"}
+authors = [
+    {name = "Nik Jois", email = "nikjois@llamasearch.ai"}
+]
+keywords = ["computer-vision", "slam", "structure-from-motion", "sensor-fusion", "drone", "robotics"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Image Processing",
+    "Topic :: Scientific/Engineering :: Visualization",
+]
+dependencies = [
+    "numpy>=1.20.0",
+    "opencv-python>=4.5.0",
+    "scipy>=1.7.0",
+    "matplotlib>=3.4.0",
+    "torch>=1.9.0",
+    "fastapi>=0.68.0",
+    "uvicorn>=0.15.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=6.0.0",
+    "pytest-cov>=2.12.0",
+    "flake8>=3.9.0",
+    "mypy>=0.910",
+    "black>=21.5b2",
+    "isort>=5.9.0",
+    "sphinx>=4.0.0",
+    "sphinx-rtd-theme>=0.5.2",
+]
+ros = [
+    "rclpy>=0.13.0",
+]
+web = [
+    "fastapi>=0.68.0",
+    "uvicorn>=0.15.0", 
+    "pydantic>=1.8.0",
+    "python-multipart>=0.0.5",
+]
+ml = [
+    "torch>=1.9.0",
+    "torchvision>=0.10.0",
+    "tensorboard>=2.6.0",
+]
+
+[project.scripts]
+openperception = "openperception.main:main"
+openperception-benchmark = "openperception.benchmarking.benchmark:main_benchmark_cli"
+openperception-deploy = "openperception.deployment.jetson_deployment:main_deploy_cli"
+
+[project.urls]
+"Homepage" = "https://github.com/llamasearchai/OpenPerception"
+"Bug Tracker" = "https://github.com/llamasearchai/OpenPerception/issues"
+"Documentation" = "https://github.com/llamasearchai/OpenPerception/tree/main/docs"
+
+[tool.black]
+line-length = 100
+target-version = ["py38"]
+
+[tool.isort]
+profile = "black"
+line_length = 100
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_classes = "Test*"
+python_functions = "test_*" 

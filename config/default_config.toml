@@ -1,0 +1,149 @@
+# OpenPerception Default Configuration
+
+# General Settings
+[general]
+version = "0.1.0"
+log_level = "INFO"
+output_dir = "output"
+enable_gpu = true
+gpu_device = 0
+
+# SLAM Configuration
+[slam]
+enabled = true
+feature_detector = "ORB"  # Options: "ORB", "SIFT"
+max_features = 2000
+min_features_for_initialization = 100
+min_matches_for_pose_estimation = 15
+max_frames_between_keyframes = 20
+keyframe_distance_threshold = 0.5
+ransac_threshold_pixels = 1.0
+max_mapping_threads = 2
+mapping_rate = 5
+matcher_cross_check = true
+
+# Structure from Motion (SfM) Configuration
+[sfm]
+enabled = true
+feature_detector = "SIFT"  # Options: "ORB", "SIFT"
+max_features = 5000
+min_matches_for_reconstruction = 20
+bundle_adjustment_max_iterations = 100
+matcher_algorithm = "FLANN"  # Options: "FLANN", "BF"
+filter_point_cloud = true
+max_reprojection_error = 4.0
+
+# Sensor Fusion Configuration
+[sensor_fusion]
+enabled = true
+imu_weight = 0.7
+camera_weight = 0.3
+max_prediction_time = 0.5
+kalman_process_noise = 0.01
+kalman_measurement_noise = 0.1
+buffer_size = 200
+
+# ROS2 Interface Configuration
+[ros2_interface]
+enabled = false
+node_name = "openperception_node"
+publish_map_topic = "/openperception/map"
+publish_pose_topic = "/openperception/pose"
+subscribe_camera_topic = "/camera/image_raw"
+subscribe_depth_topic = "/camera/depth/image_rect_raw"
+subscribe_imu_topic = "/imu/data"
+subscribe_lidar_topic = "/points2"
+subscribe_gps_topic = "/gps/fix"
+qos_profile = "SENSOR_DATA"  # Options: "SENSOR_DATA", "RELIABLE"
+
+# Web Service Configuration
+[web_service]
+enabled = true
+host = "0.0.0.0"
+port = 8000
+log_level = "info"
+enable_cors = true
+allowed_origins = ["*"]
+
+# Mission Planner Configuration
+[mission_planner]
+enabled = true
+use_nlp = true
+max_waypoints = 100
+safety_margin = 5.0
+obstacle_avoidance_threshold = 2.0
+default_altitude = 10.0
+default_speed = 5.0
+
+# Deployment Configuration
+[deployment]
+enable_tensorrt = false
+pytorch_version = "https://nvidia.box.com/shared/static/p57jwntv436lfrd78inwl7iml6p13fzh.whl"
+
+[deployment.target]
+ip = "192.168.1.100"
+username = "jetson"
+ssh_key = "~/.ssh/id_rsa"
+deploy_path = "/home/jetson/OpenPerception"
+
+[deployment.dependencies]
+apt = ["libopencv-dev", "libyaml-cpp-dev", "libeigen3-dev"]
+pip = ["numpy", "opencv-python", "pyyaml"]
+
+[deployment.services]
+enable_systemd = true
+service_name = "openperception"
+user = "jetson"
+startup = true
+
+[deployment.logging]
+log_path = "/var/log/openperception"
+log_level = "INFO"
+
+# Calibration Configuration
+[calibration]
+enabled = true
+chessboard_size = [9, 6]
+square_size = 0.025  # in meters
+min_images_for_calibration = 10
+
+# Data Pipeline Configuration
+[data_pipeline]
+dataset_dir = "datasets"
+image_width = 640
+image_height = 480
+image_format = "jpg"
+export_formats = ["coco", "yolo"]
+
+# Deep Learning Configuration
+[deep_learning]
+enabled = true
+model_dir = "models"
+batch_size = 8
+learning_rate = 0.001
+num_epochs = 100
+validation_split = 0.2
+augmentation = true
+
+[deep_learning.yolo]
+model_type = "yolov5s"
+confidence_threshold = 0.5
+nms_threshold = 0.4
+input_size = [640, 640]
+
+# Visualization Configuration
+[visualization]
+enabled = true
+map_point_size = 2.0
+keyframe_size = 0.1
+trajectory_line_width = 2.0
+background_color = [0.1, 0.1, 0.1]
+point_cloud_max_points = 100000
+
+# Benchmarking Configuration
+[benchmarking]
+output_dir = "benchmarks_output"
+iterations = 3
+compare_with_previous = true
+save_metrics = ["time", "memory", "cpu", "gpu"]
+save_charts = true 

@@ -1,0 +1,50 @@
+# Core dependencies
+numpy>=1.20.0
+opencv-python>=4.5.0
+scipy>=1.7.0
+matplotlib>=3.4.0
+pyyaml>=6.0.0
+tqdm>=4.62.0
+pillow>=8.3.0
+dataclasses>=0.8;python_version<"3.7"
+typing-extensions>=4.0.0
+
+# Deep learning
+torch>=1.9.0
+torchvision>=0.10.0
+
+# Web services
+fastapi>=0.68.0
+uvicorn>=0.15.0
+pydantic>=1.8.0
+python-multipart>=0.0.5
+
+# Visualization
+plotly>=5.1.0
+open3d>=0.13.0
+
+# Optional: ROS2 - Comment these out if not using ROS2
+# rclpy>=0.13.0
+# sensor_msgs>=0.9.0
+# geometry_msgs>=0.9.0
+# cv_bridge>=3.0.0
+
+# Optional: Bundle adjustment and optimization
+g2o>=1.0.0
+# ceres-solver not directly pip-installable, see docs for installation
+
+# Optional: NLP components
+transformers>=4.11.0
+nltk>=3.6.0
+
+# Testing and development
+pytest>=6.0.0
+pytest-cov>=2.12.0
+flake8>=3.9.0
+mypy>=0.910
+black>=21.5b2
+isort>=5.9.0
+
+# Documentation
+sphinx>=4.0.0
+sphinx-rtd-theme>=0.5.2 

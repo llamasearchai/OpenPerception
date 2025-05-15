@@ -1,0 +1,139 @@
+# Default configuration for OpenPerception
+
+[general]
+data_dir = "data"
+output_dir = "output"
+debug = false
+log_level = "INFO"
+
+[slam]
+enabled = true
+use_gpu = true
+num_features = 1000
+feature_type = "orb"  # "orb", "sift", "surf"
+max_keyframes = 20
+keyframe_threshold = 30  # Min feature matches to create new keyframe
+
+[sfm]
+enabled = true
+use_gpu = true
+feature_type = "sift"  # "orb", "sift", "surf"
+matcher_type = "flann"  # "brute", "flann"
+min_matches = 15
+triangulation_threshold = 2.0  # Reprojection error threshold
+
+[sensor_fusion]
+enabled = true
+max_buffer_size = 100
+fusion_method = "kalman"  # "kalman", "extended_kalman", "particle"
+predict_frequency = 30  # Hz, prediction rate
+default_camera_intrinsics = [
+    [500.0, 0.0, 320.0],
+    [0.0, 500.0, 240.0],
+    [0.0, 0.0, 1.0]
+]
+default_distortion_coeffs = [0.0, 0.0, 0.0, 0.0, 0.0]
+default_camera_extrinsics = [
+    [1.0, 0.0, 0.0, 0.0],
+    [0.0, 1.0, 0.0, 0.0],
+    [0.0, 0.0, 1.0, 0.0],
+    [0.0, 0.0, 0.0, 1.0]
+]
+default_lidar_extrinsics = [
+    [1.0, 0.0, 0.0, 0.0],
+    [0.0, 1.0, 0.0, 0.0],
+    [0.0, 0.0, 1.0, 0.0],
+    [0.0, 0.0, 0.0, 1.0]
+]
+
+[calibration]
+checkerboard_size = [9, 6]  # Number of internal corners
+square_size = 0.025  # Square size in meters
+auto_detect = true
+min_images = 15
+
+[web_service]
+enabled = true
+host = "0.0.0.0"
+port = 8000
+enable_cors = true
+allowed_origins = ["http://localhost:3000", "http://localhost:1420"]
+workers = 4
+
+[data_pipeline]
+enabled = true
+dataset_dir = "datasets"
+auto_annotate = true
+annotation_confidence = 0.7
+
+[deep_learning]
+model_path = "models"
+batch_size = 8
+use_cuda = true
+fp16 = false
+input_size = [224, 224]
+pretrained = true
+backbone = "resnet50"
+
+[mission_planner]
+enabled = true
+openai_api_key = ""  # Set your API key here or as environment variable
+planning_algorithm = "rrt_star"  # "rrt", "rrt_star", "a_star"
+replanning_interval = 5  # seconds
+
+[ros_interface]
+enabled = false
+node_name = "open_perception_node"
+use_composition = true
+topics = [
+    {name = "camera/image_raw", type = "sensor_msgs/Image", direction = "subscribe"},
+    {name = "camera/camera_info", type = "sensor_msgs/CameraInfo", direction = "subscribe"},
+    {name = "slam/pose", type = "geometry_msgs/PoseStamped", direction = "publish"},
+    {name = "slam/map", type = "sensor_msgs/PointCloud2", direction = "publish"}
+]
+
+[visualization]
+enabled = true
+max_points = 100000  # Maximum number of points to visualize
+point_size = 2.0
+show_trajectory = true
+
+[deployment]
+target = {
+    ip = "192.168.1.100",
+    username = "jetson",
+    ssh_key = "~/.ssh/id_rsa",
+    deploy_path = "/home/jetson/open_perception"
+}
+dependencies = {
+    apt = [
+        "python3-pip",
+        "python3-dev",
+        "build-essential",
+        "cmake",
+        "libopencv-dev",
+        "libsm6",
+        "libxext6"
+    ],
+    pip = [
+        "numpy",
+        "scipy",
+        "opencv-python",
+        "torch",
+        "fastapi",
+        "uvicorn"
+    ]
+}
+optimization = {
+    enable_tensorrt = true,
+    enable_cuda = true,
+    enable_cudnn = true
+}
+
+[path_planning]
+algorithm = "rrt_star"
+max_iterations = 1000
+goal_sample_rate = 0.1
+step_size = 0.2
+goal_threshold = 0.5
+obstacle_threshold = 0.8 

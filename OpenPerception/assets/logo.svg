@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3498db" />
+      <stop offset="100%" stop-color="#8e44ad" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background Circle -->
+  <circle cx="150" cy="150" r="140" fill="#111" stroke="url(#gradient)" stroke-width="5" />
+  
+  <!-- "O" shape for camera lens -->
+  <circle cx="150" cy="150" r="70" fill="none" stroke="url(#gradient)" stroke-width="8" />
+  
+  <!-- Camera Aperture Lines -->
+  <g stroke="url(#gradient)" stroke-width="3" opacity="0.8">
+    <line x1="150" y1="70" x2="150" y2="90" />
+    <line x1="150" y1="210" x2="150" y2="230" />
+    <line x1="70" y1="150" x2="90" y2="150" />
+    <line x1="210" y1="150" x2="230" y2="150" />
+    
+    <line x1="110" y1="110" x2="125" y2="125" />
+    <line x1="175" y1="175" x2="190" y2="190" />
+    <line x1="110" y1="190" x2="125" y2="175" />
+    <line x1="175" y1="125" x2="190" y2="110" />
+  </g>
+  
+  <!-- Drone Silhouette -->
+  <g transform="translate(150, 150) scale(0.4) translate(-150, -150)" fill="#fff" opacity="0.9">
+    <rect x="140" y="130" width="20" height="40" rx="5" />
+    
+    <!-- Drone Arms -->
+    <rect x="120" y="145" width="60" height="10" rx="5" />
+    <rect x="145" y="120" width="10" height="60" rx="5" />
+    
+    <!-- Drone Propellers -->
+    <circle cx="110" cy="150" r="15" stroke="#fff" stroke-width="3" fill="none" />
+    <circle cx="190" cy="150" r="15" stroke="#fff" stroke-width="3" fill="none" />
+    <circle cx="150" cy="110" r="15" stroke="#fff" stroke-width="3" fill="none" />
+    <circle cx="150" cy="190" r="15" stroke="#fff" stroke-width="3" fill="none" />
+  </g>
+  
+  <!-- Data Visualization Elements -->
+  <g stroke="#fff" stroke-width="1.5" fill="none" opacity="0.6">
+    <path d="M230,180 C240,160 245,140 250,120" />
+    <path d="M220,185 C235,170 245,155 250,135" />
+    <circle cx="230" cy="180" r="3" fill="#fff" />
+    <circle cx="250" cy="120" r="3" fill="#fff" />
+  </g>
+  
+  <!-- Text "OpenPerception" - Removed as we should leave text as element in actual implementation -->
+</svg> 
